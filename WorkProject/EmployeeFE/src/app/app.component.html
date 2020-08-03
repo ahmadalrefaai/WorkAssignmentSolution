@@ -1,0 +1,86 @@
+
+    <div class="container">  
+        
+      <form [formGroup]="EmpForm" (ngSubmit)="this[EventValue]()">  
+          
+          <h3>Employee Table CRUD Operation</h3>  
+          <div class="row">  
+               
+          <table class="table">  
+          <tr>  
+            <td>Name</td>  
+            <td>  
+              <input type="hidden" formControlName="eId">  
+              <input type="text" formControlName="eName">  
+              <div *ngIf="submitted && EmpForm.controls.eName.errors" class="text-danger">  
+                <div *ngIf="EmpForm.controls.eName.errors.required"> Name is a required field</div>  
+              </div>   
+            </td>  
+          </tr>  
+            
+          <tr>  
+            <td>Address</td>  
+            <td><input type="text" formControlName="eAddress">  
+              <div *ngIf="submitted && EmpForm.controls.eAddress.errors" class="text-danger">  
+                <div *ngIf="EmpForm.controls.eAddress.errors.required"> Address is a required field</div>  
+              </div>   
+            </td>  
+          </tr>  
+          <tr>  
+            <td>Email</td>  
+            <td>  
+              <input type="text" formControlName="eEmail">  
+              <div *ngIf="submitted && EmpForm.controls.eEmail.errors" class="text-danger">  
+                <div *ngIf="EmpForm.controls.eEmail.errors.required">Email is a required field</div>  
+              </div>  
+            </td>  
+          </tr>  
+          <tr>  
+            <td>Age</td>  
+            <td>  
+              <input type="number" formControlName="eAge">  
+              <div *ngIf="submitted && EmpForm.controls.eAge.errors" class="text-danger">  
+                <div *ngIf="EmpForm.controls.eAge.errors.required">Age is required</div>  
+              </div>  
+                
+            </td>  
+          </tr>  
+          <tr>  
+        
+            <td colspan="2">  
+              <button type="submit" class="btn btn-primary">{{EventValue}}</button>  
+            </td>  
+          </tr>  
+            
+        </table>  
+        </div>  
+           
+       <div class="row">  
+        <table class="table table-striped">  
+          <tr>  
+            <td>Id</td>  
+            <td>Name</td>  
+              
+            <td>Address</td>  
+            <td>Email</td>  
+            <td>Age</td>  
+            <td>Edit</td>  
+            <td>Delete</td>  
+          </tr>  
+        
+          <tr *ngFor="let d of data">  
+            <td>{{d.eId}}</td>  
+            <td>{{d.eName}}</td>  
+             
+            <td>{{d.eAddress}}</td>  
+            <td>{{d.eEmail}}</td>  
+            <td>{{d.eAge}}</td>  
+            <td><a (click)="EditData(d)" class="btn btn-warning">Edit</a></td>  
+            <td><a (click)="deleteData(d.eId)" class="btn btn-danger">Delete</a></td>    
+          </tr>  
+        </table>  
+      </div>  
+      </form>  
+        
+      </div>  
+  
