@@ -8,7 +8,11 @@
    import { ServiceService } from './service.service';
    import { MatTableModule } from '@angular/material/table';
    import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+   import { MatPaginator } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { MatPaginatorModule } from '@angular/material/paginator'; 
     @NgModule({  
       declarations: [  
         AppComponent  
@@ -20,9 +24,14 @@
         HttpClientModule,
         MatTableModule,
         BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule,
+
+
       
       ],  
-      providers: [ServiceService],  
+      providers: [ServiceService], 
       bootstrap: [AppComponent]  
     })  
     export class AppModule { }  
