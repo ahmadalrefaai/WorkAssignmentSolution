@@ -55,7 +55,6 @@
         </table>  
         </div>  
            
-          <div class="row">
 
 
               <mat-form-field>
@@ -64,7 +63,7 @@
               </mat-form-field>
 
               <div class="mat-elevation-z8">
-                  <table mat-table [dataSource]="dataSource" matSort>
+                  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
                       <!-- ID Column -->
                       <ng-container matColumnDef="eId">
@@ -72,19 +71,19 @@
                           <mat-cell *matCellDef="let element"> {{element.eId}} </mat-cell>
                       </ng-container>
 
-                      <!-- Progress Column -->
+                      <!-- Name Column -->
                       <ng-container matColumnDef="eName">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.eName}}% </mat-cell>
                       </ng-container>
 
-                      <!-- Name Column -->
+                      <!-- Address Column -->
                       <ng-container matColumnDef="eAddress">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.eAddress}} </mat-cell>
                       </ng-container>
 
-                      <!-- Color Column -->
+                      <!-- Age Column -->
                       <ng-container matColumnDef="eAge">
                           <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
                           <mat-cell *matCellDef="let element"> {{element.eAge}} </mat-cell>
@@ -103,7 +102,6 @@
                       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-                      <!-- Row shown when there is no matching data. -->
                   
                   </table>
 
@@ -111,7 +109,7 @@
               </div>
 
 
-          </div>  
+       
       </form>  
         
       </div>  

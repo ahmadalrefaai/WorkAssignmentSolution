@@ -41,13 +41,12 @@ export class AppComponent {
       eAddress: new FormControl("",[Validators.required]),  
       eEmail:new FormControl("",[Validators.required]),  
       eAge: new FormControl("",[Validators.required]),  
-    })    
-  }
+    })
 
-  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -63,13 +62,15 @@ export class AppComponent {
       this.data = data;
       this.dataSource.data = data
     })  
-  }  
+  }
+
   deleteData(element) {  
     this.ServiceService.deleteData(element.eId).subscribe((data: any[]) => {  
       this.data = data;  
       this.getdata();  
     })  
-  }  
+  }
+
   Save() {   
     this.submitted = true;  
     
