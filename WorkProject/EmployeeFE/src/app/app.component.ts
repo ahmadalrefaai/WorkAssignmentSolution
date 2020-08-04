@@ -25,8 +25,7 @@ export class AppComponent {
     "eName",
     "eAddress",
     "eAge",
-    "editAction",
-    "deleteAction"
+    "Actions"
   ];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
