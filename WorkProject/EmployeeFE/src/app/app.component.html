@@ -55,31 +55,49 @@
         </table>  
         </div>  
            
-       <div class="row">  
-        <table class="table table-striped">  
-          <tr>  
-            <td>Id</td>  
-            <td>Name</td>  
-              
-            <td>Address</td>  
-            <td>Email</td>  
-            <td>Age</td>  
-            <td>Edit</td>  
-            <td>Delete</td>  
-          </tr>  
-        
-          <tr *ngFor="let d of data">  
-            <td>{{d.eId}}</td>  
-            <td>{{d.eName}}</td>  
-             
-            <td>{{d.eAddress}}</td>  
-            <td>{{d.eEmail}}</td>  
-            <td>{{d.eAge}}</td>  
-            <td><a (click)="EditData(d)" class="btn btn-warning">Edit</a></td>  
-            <td><a (click)="deleteData(d.eId)" class="btn btn-danger">Delete</a></td>    
-          </tr>  
-        </table>  
-      </div>  
+          <div class="row">
+    
+              <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="eId">
+                      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.eId}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="eName">
+                      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.eName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="eAddress">
+                      <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.eAddress}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="eAge">
+                      <mat-header-cell *matHeaderCellDef> Age </mat-header-cell>
+                      <mat-cell *matCellDef="let element"> {{element.eAge}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="editAction">
+                      <mat-header-cell *matHeaderCellDef> editAction </mat-header-cell>
+                      <mat-cell *matCellDef="let element"><i class="material-icons" (click)="EditData(element)">Edit</i>  </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="deleteAction">
+                      <mat-header-cell *matHeaderCellDef> deleteAction </mat-header-cell>
+                          <mat-cell *matCellDef="let element"><i class="material-icons" (click)="deleteData(element)">Delete</i>  </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+
+
+          </div>  
       </form>  
         
       </div>  

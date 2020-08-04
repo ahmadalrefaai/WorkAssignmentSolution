@@ -6,6 +6,8 @@
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';  
     import { HttpClientModule }    from '@angular/common/http';  
    import { ServiceService } from './service.service';
+   import { MatTableModule } from '@angular/material/table';
+   import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
     @NgModule({  
       declarations: [  
@@ -16,6 +18,8 @@
         FormsModule,  
         ReactiveFormsModule,  
         HttpClientModule,
+        MatTableModule,
+        BrowserAnimationsModule,
       
       ],  
       providers: [ServiceService],  
