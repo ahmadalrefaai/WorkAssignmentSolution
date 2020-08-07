@@ -6,6 +6,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ViewChild } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
+import { OnInit, ElementRef, NgZone } from '@angular/core';
+import * as Leaflet from 'leaflet';
+import { antPath } from 'leaflet-ant-path';
+
+
 @Component({  
   selector: 'app-root',  
   templateUrl: './app.component.html',  
@@ -13,9 +19,24 @@ import { ViewChild } from '@angular/core';
 })  
 export class AppComponent {  
   title = 'EmployeeFE';  
-     
-  constructor(private ServiceService: ServiceService) { }  
-  data: any;  
+  latitude: number;
+  longitude: number;
+  zoom: number;
+  address: string;
+  map: Leaflet.Map;
+  private geoCoder;
+
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
+  constructor(private ServiceService: ServiceService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone) { }  
+
+  data: any;
+
+
   EmpForm: FormGroup;  
   submitted = false;   
   EventValue: any = "Save";  
@@ -33,7 +54,6 @@ export class AppComponent {
 
   ngOnInit(): void {  
     this.getdata();  
-
     this.EmpForm = new FormGroup({  
       eId: new FormControl(null),  
       eName: new FormControl("",[Validators.required]),        
@@ -44,9 +64,54 @@ export class AppComponent {
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    this.map = Leaflet.map('map').setView([28.644800, 77.216721], 5);
+    Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'edupala.com © Angular LeafLet',
+    }).addTo(this.map);
+
+    Leaflet.marker([28.6, 77]).addTo(this.map).bindPopup('Delhi').openPopup();
+    Leaflet.marker([34, 77]).addTo(this.map).bindPopup('Leh').openPopup();
+    
+
+    antPath([[28.644800, 77.216721], [34.1526, 77.5771]],
+      { color: '#FF0000', weight: 5, opacity: 0.6 })
+      .addTo(this.map);
+
   }
+  ngAfterViewInit(): void {
 
+    this.setCurrentLocation();
+    this.mapsAPILoader.load().then(() => {
+    this.setCurrentLocation();
+    this.geoCoder = new google.maps.Geocoder;
 
+    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    autocomplete.addListener("place_changed", () => {
+      this.ngZone.run(() => {
+
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+        this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+
+  }
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
+    }
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -55,7 +120,30 @@ export class AppComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+  markerDragEnd($event: any) {
+    console.log($event);
+    this.latitude = $event.coords.lat;
+    this.longitude = $event.coords.lng;
+    this.getAddress(this.latitude, this.longitude);
+  }
 
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
+  }
   getdata() {  
     this.ServiceService.getData().subscribe((data: any[]) => {  
       this.data = data;

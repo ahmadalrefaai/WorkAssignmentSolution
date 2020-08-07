@@ -20,9 +20,11 @@ export class ServiceService {
     {
       return this.http.post('/api/Employee', formData)
     }
+
     putData(id,formData){
       return this.http.put('/api/Employee/'+id,formData);
     }
+
     deleteData(id)
     {
       return this.http.delete('/api/Employee/'+id);
