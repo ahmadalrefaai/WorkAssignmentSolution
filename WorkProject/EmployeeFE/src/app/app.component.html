@@ -26,9 +26,13 @@
             </div>
 
             <!-- Age -->
-            <input type="number" class="form-control mb-4" placeholder="Age" formControlName="eAge">
+            <input type="number" class="form-control mb-4" placeholder="Age" formControlName="eAge" required minlength="2" maxlength="2" >
             <div *ngIf="submitted && EmpForm.controls.eAge.errors" class="text-danger">
                 <div *ngIf="EmpForm.controls.eAge.errors.required"> Age is a required field</div>
+                <div *ngIf="EmpForm.controls.eAge.errors.minLength"> Please enter a valid age</div>
+                <div *ngIf="EmpForm.controls.eAge.errors.maxLength"> Please enter a valid age</div>
+
+
             </div>
             <input type="hidden" formControlName="eId">
 

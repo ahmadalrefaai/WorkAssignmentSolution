@@ -59,7 +59,7 @@ export class AppComponent {
       eName: new FormControl("",[Validators.required]),        
       eAddress: new FormControl("",[Validators.required]),  
       eEmail:new FormControl("",[Validators.required]),  
-      eAge: new FormControl("",[Validators.required]),  
+      eAge: new FormControl("", [Validators.minLength(2), Validators.maxLength(2), Validators.required]),  
     })
 
     this.dataSource.paginator = this.paginator;
@@ -74,9 +74,6 @@ export class AppComponent {
     Leaflet.marker([34, 77]).addTo(this.map).bindPopup('Leh').openPopup();
     
 
-    antPath([[28.644800, 77.216721], [34.1526, 77.5771]],
-      { color: '#FF0000', weight: 5, opacity: 0.6 })
-      .addTo(this.map);
 
   }
   ngAfterViewInit(): void {
