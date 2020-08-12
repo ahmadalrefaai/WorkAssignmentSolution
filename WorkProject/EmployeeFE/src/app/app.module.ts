@@ -33,10 +33,6 @@
         MatPaginatorModule,
         MatSortModule,
         MatButtonModule,
-        AgmCoreModule.forRoot({
-          apiKey: 'AIzaSyCnqRU2pIdz7aqVeXbPyeyO-_aChlpRr-I',
-          libraries: ['places']
-        }),
         NgbModule,
         GoogleMapsModule
 
