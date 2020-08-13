@@ -29,6 +29,12 @@ export class AppComponent {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
+  @ViewChild('xcoord')
+  public xInput: ElementRef;
+  @ViewChild('ycoord')
+  public yInput: ElementRef;
+
+
   constructor(private ServiceService: ServiceService) { }  
 
   data: any;
@@ -72,6 +78,12 @@ export class AppComponent {
     
 
 
+  }
+
+
+  setNewMarker() {
+
+    Leaflet.marker([this.xInput.nativeElement.value, this.yInput.nativeElement.value]).addTo(this.map).bindPopup('Marker').openPopup();
   }
 
   /** GEOCODING code that didn't work
