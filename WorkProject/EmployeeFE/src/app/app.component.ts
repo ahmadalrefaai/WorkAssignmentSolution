@@ -73,7 +73,8 @@ export class AppComponent {
 
 
   }
-     
+
+  /** GEOCODING code that didn't work
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -83,6 +84,8 @@ export class AppComponent {
       });
     }
   }
+   */
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -91,6 +94,9 @@ export class AppComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+/** GEOCODING CODE that didnt work
+ 
   markerDragEnd($event: any) {
     console.log($event);
     this.latitude = $event.coords.lat;
@@ -115,6 +121,7 @@ export class AppComponent {
 
     });
   }
+*/
   getdata() {  
     this.ServiceService.getData().subscribe((data: any[]) => {  
       this.data = data;
@@ -140,7 +147,8 @@ export class AppComponent {
       this.resetFrom();  
   
     })  
-  }  
+  }
+
   Update() {   
     this.submitted = true;  
     
